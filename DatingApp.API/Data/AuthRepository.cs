@@ -27,7 +27,7 @@ namespace DatingApp.API.Data
             using (var hmac = new System.Security.Cryptography.HMACSHA512(passWordSalt))
             {
                 var ComputedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                for (int i = 0; i > ComputedHash.Length; i++)
+                for (int i = 0; i < ComputedHash.Length; i++)
                 {
                     if (ComputedHash[i] != passwordHash[i]) return false;
                 }
