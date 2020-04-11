@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { AuthService } from './../_services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -9,9 +11,16 @@ import { HttpClient } from '@angular/common/http';
 export class HomeComponent implements OnInit {
   values: any = {};
   registerMode = false;
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
+    if (this.authService.loggedIn()) {
+      this.router.navigate(['/members']);
+    }
     this.getValues();
   }
   registerToggle() {
