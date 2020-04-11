@@ -16,6 +16,10 @@
 
     <div *ngIf="loggedIn()" class="dropdown mt-3" dropdown>
       <a class="dropdown-toggle text-light" dropdownToggle>
+        <img
+          src="https://randomuser.me/api/portraits/women/3.jpg"
+          class="float-left rounded-circle login-avatar img-fluid"
+        />
         Welcome {{ authService.decodedToken?.unique_name | titlecase }}
       </a>
       <div class="dropdown-menu" *dropdownMenu>

@@ -8,7 +8,8 @@ import {
   HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, retry, tap } from 'rxjs/operators';
+import { error } from 'protractor';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -17,18 +18,26 @@ export class ErrorInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
-      catchError((error) => {
-        if (error.status === 401) {
-          return throwError(error.statusText);
+      // tap((abc) => {
+      //   console.log(abc, req);
+      // }),
+      // retry(1),
+      catchError((httpErrorResponse) => {
+        console.log(httpErrorResponse);
+        console.log(httpErrorResponse instanceof HttpErrorResponse);
+        if (httpErrorResponse.status === 401) {
+          return throwError(httpErrorResponse.statusText);
         }
-        if (error instanceof HttpErrorResponse) {
-          const applicationError = error.headers.get('Application-Error');
+        if (httpErrorResponse instanceof HttpErrorResponse) {
+          const applicationError = httpErrorResponse.headers.get(
+            'Application-Error'
+          );
           if (applicationError) {
             return throwError(applicationError);
           }
         }
-        const serverError = error.error;
-        let modelStateError = '';
+        const serverError = httpErrorResponse.error;
+        let modelStateError: string;
         if (serverError.errors && typeof serverError.errors === 'object') {
           for (const key in serverError.errors) {
             if (serverError.errors[key]) {
@@ -36,7 +45,12 @@ export class ErrorInterceptor implements HttpInterceptor {
             }
           }
         }
-        return throwError(modelStateError || serverError || 'Server Error');
+        console.log(httpErrorResponse.error);
+        return throwError(
+          modelStateError ||
+            serverError.error ||
+            'Server Error :' + httpErrorResponse.message
+        );
       })
     );
   }

@@ -2,3 +2,19 @@
 .dropdown-item {
   cursor: pointer;
 }
+.dropdown-toggle {
+  position: relative;
+  padding-left: 50px;
+  padding-top: 10px;
+  height: 40px;
+  display: inline-block;
+}
+.login-avatar {
+  border: 2px solid #fff;
+  height: 40px;
+  width: 40px;
+  /* clip: rect(0, 40px, 40px, 0); */
+  position: absolute;
+  left: 0;
+  top: 0;
+}
