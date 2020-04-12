@@ -14,12 +14,13 @@ import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
-import { MemberListComponent } from './member/member-list/member-list.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { appRoutes } from './routes';
-import { MemberCardComponent } from './member/member-list/member-card/member-card.component';
-import { MemberDetailComponent } from './member/member-list/member-detail/member-detail.component';
+import { MemberListComponent } from './member/member-list/member-list.component';
+import { MemberCardComponent } from './member/member-card/member-card.component';
+import { MemberDetailComponent } from './member/member-detail/member-detail.component';
+import { MemberEditComponent } from './member/member-edit/member-edit.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -36,6 +37,7 @@ export function tokenGetter() {
     MessagesComponent,
     MemberCardComponent,
     MemberDetailComponent,
+    MemberEditComponent,
   ],
   imports: [
     BrowserModule,

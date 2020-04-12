@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {NgxGalleryOptions} from '@kolkov/ngx-gallery';
 import {NgxGalleryImage} from '@kolkov/ngx-gallery';
 import {NgxGalleryAnimation} from '@kolkov/ngx-gallery';
-import { User } from './../../../_models/user';
-import { UserService } from './../../../_services/user.service';
-import { AlertifyService } from './../../../_services/alertify.service';
+import { User } from '../../_models/user';
+import { UserService } from '../../_services/user.service';
+import { AlertifyService } from '../../_services/alertify.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
