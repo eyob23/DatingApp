@@ -9,7 +9,14 @@ import { environment } from './../../environments/environment';
 export class AuthService {
   baseUser = environment.apiUrl + 'auth/';
   jwtHelper = new JwtHelperService();
-  decodedToken: any;
+  decodedToken: {
+    nameid: string;
+    unique_name: string;
+    avatar: string;
+    nbf: Date;
+    exp: Date;
+    iat: Date;
+  };
   constructor(private http: HttpClient) {}
   login(model: any) {
     return this.http.post(this.baseUser + 'login', model).pipe(
