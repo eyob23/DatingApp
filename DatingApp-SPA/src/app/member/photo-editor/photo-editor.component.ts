@@ -92,7 +92,7 @@ export class PhotoEditorComponent implements OnInit {
             'Successfully changed main profile picture'
           );
           this.mainPhotoChange.emit(photo.url);
-          let currentUser = this.authService.getCurrentUser();
+          const currentUser = this.authService.getCurrentUser();
           currentUser.photoUrl = photo.url;
           this.authService.setCurrentUser(currentUser);
         },
