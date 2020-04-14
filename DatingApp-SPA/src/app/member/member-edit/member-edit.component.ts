@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AlertifyService } from './../../_services/alertify.service';
 import { NgForm } from '@angular/forms';
 import { UserService } from './../../_services/user.service';
+import { Photo } from 'src/app/_models/photo';
 
 @Component({
   selector: 'app-member-edit',
@@ -18,8 +19,8 @@ import { UserService } from './../../_services/user.service';
 })
 export class MemberEditComponent implements OnInit, OnChanges {
   @ViewChild('editForm', { static: true }) editForm: NgForm;
-  @HostListener('window:beforeunload', ['$event'])
   user: User;
+  @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     if (this.editForm.dirty) {
       $event.returnValue = true;
@@ -43,7 +44,6 @@ export class MemberEditComponent implements OnInit, OnChanges {
     );
   }
   updateUser() {
-    console.log(this.user);
     this.userService.updateUser(this.user).subscribe(
       (user: User) => {
         this.alertifyService.success('Profile updated successfully!');
@@ -53,6 +53,9 @@ export class MemberEditComponent implements OnInit, OnChanges {
         this.alertifyService.error(error);
       }
     );
+  }
+  updatePhoto(mainPhotoUrl: string) {
+    this.user.photoUrl = mainPhotoUrl;
   }
   ngOnChanges() {}
 }

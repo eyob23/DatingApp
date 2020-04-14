@@ -17,7 +17,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {}
   register() {
-    console.log(this.model);
     this.authService.register(this.model).subscribe(
       () => {
         this.alertifyService.success('registration is successfully');

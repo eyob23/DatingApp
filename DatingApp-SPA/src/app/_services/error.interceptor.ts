@@ -24,7 +24,6 @@ export class ErrorInterceptor implements HttpInterceptor {
       // retry(1),
       catchError((httpErrorResponse) => {
         console.log(httpErrorResponse);
-        console.log(httpErrorResponse instanceof HttpErrorResponse);
         if (httpErrorResponse.status === 401) {
           return throwError(httpErrorResponse.statusText);
         }
@@ -37,6 +36,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           }
         }
         const serverError = httpErrorResponse.error;
+        console.log(serverError);
         let modelStateError: string;
         if (serverError.errors && typeof serverError.errors === 'object') {
           for (const key in serverError.errors) {
@@ -45,7 +45,6 @@ export class ErrorInterceptor implements HttpInterceptor {
             }
           }
         }
-        console.log(httpErrorResponse.error);
         return throwError(
           modelStateError ||
             serverError.error ||

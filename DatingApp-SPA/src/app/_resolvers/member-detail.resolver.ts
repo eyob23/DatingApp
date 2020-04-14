@@ -18,7 +18,6 @@ export class MemberDetailResolver implements Resolve<User> {
     route: import('@angular/router').ActivatedRouteSnapshot,
     state: import('@angular/router').RouterStateSnapshot
   ): User | Observable<User> | Promise<User> {
-    console.log(state);
     return this.userService.getUser(+route.paramMap.get('id')).pipe(
       catchError((error) => {
         this.alertifyService.error('Problem retrieving data:' + error);

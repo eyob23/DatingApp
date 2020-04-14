@@ -9,25 +9,30 @@ export class AlertifyService {
   constructor() {}
 
   confirm(message: string, okCallback: () => any) {
-    alertify.confirm(message, (e: any) => {
-      if (e) {
-        okCallback();
-      } else {
-      }
-    });
+    alertify.confirm(
+      'Confirm',
+      message,
+      (e: any) => {
+        if (e) {
+          okCallback();
+        } else {
+        }
+      },
+      null
+    );
   }
 
   success(message: string) {
-    alertify.success(message);
+    alertify.success('Success', message);
   }
 
   error(message: string) {
-    alertify.error(message);
+    alertify.error('Error', message);
   }
   warning(message: string) {
-    alertify.warning(message);
+    alertify.warning('Warning', message);
   }
   message(message: string) {
-    alertify.message(message);
+    alertify.message('Message', message);
   }
 }
