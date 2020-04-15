@@ -24,6 +24,7 @@ import { MemberCardComponent } from './member/member-card/member-card.component'
 import { MemberDetailComponent } from './member/member-detail/member-detail.component';
 import { MemberEditComponent } from './member/member-edit/member-edit.component';
 import { PhotoEditorComponent } from './member/photo-editor/photo-editor.component';
+import { TimeAgoPipe } from './_pipes/time-ago.pipe';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -42,6 +43,7 @@ export function tokenGetter() {
     MemberDetailComponent,
     MemberEditComponent,
     PhotoEditorComponent,
+    TimeAgoPipe,
   ],
   imports: [
     BrowserModule,
