@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { UserService } from '../../_services/user.service';
 import { AlertifyService } from '../../_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
+import { PaginatedResult } from 'src/app/_models/pagination';
+import { Pagination } from './../../_models/pagination';
 
 @Component({
   selector: 'app-member-list',
@@ -13,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 export class MemberListComponent implements OnInit, OnDestroy {
   users: User[];
   subscription: Subscription;
+  pagination: Pagination;
   constructor(
     private userService: UserService,
     private alertifyService: AlertifyService,
@@ -21,21 +24,30 @@ export class MemberListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // this.loadUsers();
-    this.route.data.subscribe((data: { users: User[] }) => {
-      this.users = data.users;
+    this.route.data.subscribe((data: { users: PaginatedResult<User[]> }) => {
+      console.log(data);
+      this.users = data.users.result;
+      this.pagination = data.users.pagination;
     });
   }
-  // loadUsers() {
-  //   this.subscription = this.userService.getUsers().subscribe(
-  //     (users: User[]) => {
-  //       this.users = users;
-  //     },
-  //     (error) => {
-  //       this.alertifyService.error(error);
-  //     }
-  //   );
-  // }
+  loadUsers() {
+    this.subscription = this.userService
+      .getUsers(this.pagination.currentPage, this.pagination.itemsPerPage)
+      .subscribe(
+        (result: PaginatedResult<User[]>) => {
+          this.users = result.result;
+          this.pagination = result.pagination;
+        },
+        (error) => {
+          this.alertifyService.error(error);
+        }
+      );
+  }
   ngOnDestroy(): void {
     // this.subscription.unsubscribe();
+  }
+  pageChanged(event: any): void {
+    this.pagination.currentPage = event.page;
+    this.loadUsers();
   }
 }
